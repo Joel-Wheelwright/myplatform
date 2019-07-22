@@ -37,5 +37,20 @@ module.exports.getDeviceById = function(req, res){
         } else {
             res.status (404).send('No device found with this id');
         }
+    })
+    .catch(function(error){
+        res.status(400).send(error);
     });
 };
+
+module.exports.updateDevice = function(req, res){
+        const deviceId = req.body.deviceId;
+        const newDeviceStatus = req.body.status;
+        DeviceModel.findByIdAndUpdate(deviceId, {status:newDeviceStatus}).then(function(device){
+            if(device){
+                res.status(200).send("Device Updated Succesfully");
+            } else{
+                res.status(404).send("No device found with this id");
+            }
+        })
+}

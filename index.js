@@ -11,6 +11,7 @@ mongoose.connection.on('error', function(error){
 });
 
 require('./Models/Device');
+require('./Models/Data');
 
 const app = express();
 
