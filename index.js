@@ -15,8 +15,8 @@ require('./Models/Data');
 
 const app = express();
 
-app.use(bodyParser());
-app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 app.get('/', function(req, res){
     res.send('It works');
