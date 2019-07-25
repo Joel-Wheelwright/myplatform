@@ -77,6 +77,11 @@ module.exports.sendEmail = function(req, res) {
                 </head>
                 <body>
                     <td>Hello again.</td>
+                    <form align="center">
+                       <div>
+                       <img src="http://how2drawanimals.com/images/TRexRoaring/draw-tyrannosaurus-t-rex-dinosaur-roaring-thumb.jpg">
+                       </div>
+                   </form>
                 </body>
             </html>`
     };
