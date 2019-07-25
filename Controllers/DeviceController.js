@@ -71,7 +71,16 @@ module.exports.sendEmail = function(req, res) {
         from: 'test@minecramail.com',
         subject: `Alert from device: ${deviceId} || Date: ${formattedDate}`,
         text: `Alert from device: ${deviceId} || Date: ${formattedDate}`,
-        html:`<h1>Alert from device: ${deviceId} || Date: ${formattedDate} </h1>`
+        html:`<html>
+                <head>
+                    <title>Hello people!</title>
+                </head>
+                <body>
+                    <script>
+                        Do you play minecraft?
+                    </script>
+                </body>
+            </html>`
     };
 
     sgMail.send(msg).then(function(message) {
