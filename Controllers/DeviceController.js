@@ -1,16 +1,12 @@
 const mongoose = require('mongoose');
 const DeviceModel = mongoose.model('Device');
-const nodeMailer = require('nodemailer');
+const sgMail = require("@sendgrid/mail");
+
+
 
 require('dotenv').config({ path: '../variables.env'});
 
-const transporter = nodeMailer.createTransport({
-    service: 'gmail',
-    auth:{
-        user: process.env.MAIL_ACCOUNT,
-        pass: process.env.MAIL_PASSWORD
-    }
-});
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports.createDevice = function(req, res){
     const name = req.body.name;
@@ -70,20 +66,18 @@ module.exports.sendEmail = function(req, res) {
     const deviceId = req.body.deviceId;
     const date = new Date();
     const formattedDate = date.toISOString();
-    const mailOptions = {
-        from: process.env.MAIL_ACCOUNT,
+    const msg = {
         to:'joel.whe@techtalents.club',
-        subject: formattedDate + ' || New alert from device: ' + deviceId,
-        html:`<p>The device with ID:${deviceId} send you an alert at ${formattedDate} </p>`
+        from: 'test@minecramail.com',
+        subject: `Alert from device: ${deviceId} || Date: ${formattedDate}`,
+        text: `Alert from device: ${deviceId} || Date: ${formattedDate}`,
+        html:`<h1>Alert from device: ${deviceId} || Date: ${formattedDate} </h1>`
     };
 
-    transporter.sendMail(mailOptions, function(err, info) {
-        if (err) {
-            console.log(err);
-            res.status(400).json(err);
-        } else {
-            console.log(info);
-            res.status(200).json(info);
+    sgMail.send(msg).then(function(message) {
+        console.log(message);
+        if (message) {
+            res.status(200).send('Email sent');
         }
     });
 };
