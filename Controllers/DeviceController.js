@@ -76,9 +76,7 @@ module.exports.sendEmail = function(req, res) {
                     <title>Hello people!</title>
                 </head>
                 <body>
-                    <script>
-                        Do you play minecraft?
-                    </script>
+                    <td>Hello again.</td>
                 </body>
             </html>`
     };
